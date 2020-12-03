@@ -3,7 +3,9 @@ import versioneer
 
 requirements = [
     # package requirements go here
-    "dask[dataframe] >= 2.30.0"
+    "dask[dataframe]",
+    "prefect",
+    "pyarrow",
 ]
 
 setup(
