@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ireland_smartmeterdata"
+version = "0.1.0"
+description = "Sets up a sandbox environment for Ireland Smart Meter datasets via prefect, dask and pandas"
+authors = ["Rowan Molony <rowan.molony@codema.ie>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+dask = "^2.30.0"
+prefect = "^0.13.18"
+pyarrow = "^2.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
