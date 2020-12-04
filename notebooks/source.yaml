@@ -1,0 +1,8 @@
+sources:
+  textfiles:
+    args:
+      decoder: !!python/name:json.loads ''
+      urlpath: test.json
+    description: ''
+    driver: intake.source.textfiles.TextFilesSource
+    metadata: {}

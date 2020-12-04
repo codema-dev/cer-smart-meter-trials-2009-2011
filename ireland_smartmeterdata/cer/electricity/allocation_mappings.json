@@ -1,0 +1,30 @@
+{
+    "Code": {
+        "1": "Residential",
+        "2": "SME",
+        "3": "Other"
+    },
+    "Residential - stimulus allocation": {
+        "E": "Control",
+        "1": "Bi-monthly detailed bill",
+        "2": "Monthly detailed bill",
+        "3": "Bi-monthly detailed bill +IHD",
+        "4": "Bi-monthly detailed bill +OLR",
+        "W": "Weekend tariff"
+    },
+    "Residential - Tariff allocation": {
+        "E": "Control",
+        "A": "Tariff A",
+        "B": "Tariff B",
+        "C": "Tariff C",
+        "D": "Tariff D",
+        "W": "Weekend tariff"
+    },
+    "SME allocation": {
+        "1": "Monthly detailed bill",
+        "2": "Bi-monthly detailed bill +IOD",
+        "3": "Bi-monthly detailed bill +web-access",
+        "4": "Bi-monthly detailed bill",
+        "C": "Control"
+    }
+}
