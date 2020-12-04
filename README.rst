@@ -39,7 +39,7 @@ To setup the `ireland_smartmeterdata` sandbox for the CER Customer Behaviour Tri
 
 
 .. image:: https://colab.research.google.com/assets/colab-badge.svg
-        :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata/notebooks
+        :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata
 
 - Local:
     - Unzip the dataset
