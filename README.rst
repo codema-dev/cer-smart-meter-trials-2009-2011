@@ -22,8 +22,8 @@ for the following datasets:
 - `CER Electricity Customer Behaviour Trial 2009-2010`__
 - `CER Gas Customer Behaviour Trial 2009-2010`__
 
-__ _CER:https://www.ucd.ie/issda/data/commissionforenergyregulationcer/ 
-__ _CER
+__ https://www.ucd.ie/issda/data/commissionforenergyregulationcer/ 
+__ https://www.ucd.ie/issda/data/commissionforenergyregulationcer/
 
 
 Installation
@@ -35,13 +35,16 @@ To setup the `ireland_smartmeterdata` sandbox for the CER Customer Behaviour Tri
 
 - Google Collab:
     - Unzip and upload the dataset to `Google Drive`
-    - Click the Google Collab badge
-
-
-.. image:: https://colab.research.google.com/assets/colab-badge.svg
-        :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata
+    - Click the Google Collab badge:
+    
+        .. image:: https://colab.research.google.com/assets/colab-badge.svg
+                :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata
+                
+    - `Mount your Google Drive to your Google Collab instance`__
+    
+    __ https://colab.research.google.com/notebooks/io.ipynb
 
 - Local:
     - Unzip the dataset
-    - Clone this repository locally via `git clone https://github.com/codema-dev/ireland_smartmeterdata` 
+    - Clone this repository locally via :code:`git clone https://github.com/codema-dev/ireland_smartmeterdata` 
     - Launch `Jupyter Notebook` and open the relevant sandbox file in the `notebooks` folder 
