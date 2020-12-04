@@ -40,7 +40,15 @@ To setup the `ireland_smartmeterdata` sandbox for the CER Customer Behaviour Tri
         .. image:: https://colab.research.google.com/assets/colab-badge.svg
                 :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata
                 
-    - `Mount your Google Drive to your Google Collab instance`__
+    - Mount your Google Drive to your Google Collab instance & refresh your filetree
+
+        .. image:: images/link-google-drive.PNG
+    
+    - Copy the path to your Google Drive data folder and paste it into the appropriate string
+
+        .. image:: images/copy-path.png
+
+    - For more information see `External data: Local Files, Drive, Sheets, and Cloud Storage`__
     
     __ https://colab.research.google.com/notebooks/io.ipynb
 
