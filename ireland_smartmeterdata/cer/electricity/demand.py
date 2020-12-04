@@ -25,7 +25,6 @@ import dask.dataframe as dd
 from dask.delayed import delayed
 from dask.distributed import Client
 import pandas as pd
-from prefect import case
 from prefect import Flow
 from prefect import Parameter
 from prefect import resource_manager
@@ -110,28 +109,18 @@ def write_parquet(ddf: dd.DataFrame, savepath: str):
     return ddf.to_parquet(savepath)
 
 
-@task
-def check_file_exists(filepath: str) -> bool:
-
-    return path.exists(filepath)
-
-
 with Flow("Clean Electricity Data") as flow:
 
     input_dirpath = Parameter("input_dirpath")
     output_dirpath = Parameter("output_dirpath")
     n_workers = Parameter("n_workers", default=1)
 
-    demands_already_cleaned = check_file_exists(output_dirpath)
+    path_to_raw_txt_files = get_path_to_raw_txt_files(input_dirpath)
 
-    with case(demands_already_cleaned, False):
-
-        path_to_raw_txt_files = get_path_to_raw_txt_files(input_dirpath)
-
-        with DaskCluster(n_workers=n_workers) as client:
-            # These tasks rely on a dask cluster to run, so we create them inside
-            # the `DaskCluster` resource manager
-            demand_raw = read_raw_txt_files(path_to_raw_txt_files)
-            demand_with_times = slice_timeid_column(demand_raw)
-            demand_with_datetimes = convert_dayid_to_datetime(demand_with_times)
-            write_parquet(demand_with_datetimes, output_dirpath)
+    with DaskCluster(n_workers=n_workers) as client:
+        # These tasks rely on a dask cluster to run, so we create them inside
+        # the `DaskCluster` resource manager
+        demand_raw = read_raw_txt_files(path_to_raw_txt_files)
+        demand_with_times = slice_timeid_column(demand_raw)
+        demand_with_datetimes = convert_dayid_to_datetime(demand_with_times)
+        write_parquet(demand_with_datetimes, output_dirpath)
