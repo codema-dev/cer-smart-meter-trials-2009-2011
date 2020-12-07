@@ -1,48 +1,64 @@
-from os import mkdir
+from io import StringIO
 from pathlib import Path
+from shutil import make_archive
 
 import pandas as pd
 import pytest
 
 from pandas.testing import assert_frame_equal
-from prefect import Task
 
 from ireland_smartmeterdata.cer.electricity import demand
 
 
 @pytest.fixture
-def raw_elec_demands_dirpath(tmp_path: Path) -> Path:
-    """Create a temporary directory containing dummy data called 'raw'.
+def electricity_data_dir(tmp_path: Path) -> Path:
 
-    Args:
-        tmp_path (Path): see https://docs.pytest.org/en/stable/tmpdir.html
+    electricity_data = pd.read_csv(
+        StringIO(
+            """1565,33501,0
+            1565,33502,0
+            """
+        )
+    )
+    electricity_data_filepaths = [
+        tmp_path / "File1.txt",
+        tmp_path / "File2.txt",
+    ]
+    electricity_data.to_csv(electricity_data_filepaths[0], sep=" ", index=False)
+    electricity_data.to_csv(electricity_data_filepaths[1], sep=" ", index=False)
 
-    Returns:
-        Path: Path to a directory containing dummy data files called 'raw'
-    """
-    dirpath = tmp_path / "raw"
-    mkdir(dirpath)
-    for filename in ("File1", "File2"):
-        with open(dirpath / f"{filename}.txt", "w") as file:
-            file.writelines("1392 19503 0.14\n1392 19504 0.138\n")
+    make_archive(
+        base_name=electricity_data_filepaths[0],
+        format="zip",
+        root_dir=tmp_path,
+    )
+    make_archive(
+        base_name=electricity_data_filepaths[1],
+        format="zip",
+        root_dir=tmp_path,
+    )
 
-    return dirpath
+    return tmp_path
 
 
-@pytest.fixture
-def clean_elec_demands_dirpath(tmp_path: Path) -> Path:
-    """Create a temporary, empty directory called 'processed'.
+def test_read_raw_txt_files(electricity_data_dir: Path) -> None:
 
-    Args:
-        tmp_path (Path): see https://docs.pytest.org/en/stable/tmpdir.html
+    expected_output = pd.read_csv(
+        StringIO(
+            """ID,timeid,demand
+            0, 1565,33501,0
+            1, 1565,33502,0
+            0, 1565,33501,0
+            1, 1565,33502,0
+            """
+        ),
+        dtype={"ID": "int16", "timeid": "string", "demand": "float32"},
+        index_col=0,
+    )
 
-    Returns:
-        Path: Path to a temporary, empty directory called 'processed'.
-    """
-    dirpath = tmp_path / "processed"
-    mkdir(dirpath)
+    output = demand.read_raw_txt_files.run(electricity_data_dir).compute()
 
-    return dirpath / "SM_electricity"
+    assert_frame_equal(output, expected_output)
 
 
 def test_slice_timeid_column() -> None:
