@@ -1,7 +1,0 @@
-[report]
-omit =
-    setup.py
-    ireland_smartmeterdata/__main__.py
-    ireland_smartmeterdata/_version.py
-    versioneer.py
-    tests/*
