@@ -1,4 +1,4 @@
-"""Clean CRU Electricity Demands.
+"""Transform Electricity Demands.
 
 From:
 
@@ -10,25 +10,15 @@ id      datetime                demand
 1392    2009-07-15 01:30:00     0.14
 """
 
-import csv
 from glob import glob
 from os import path
-from pathlib import Path
-from shutil import unpack_archive
-from typing import Any
 from typing import Iterable
-from typing import Tuple
-from zipfile import ZipFile
 
-import dask
 import dask.dataframe as dd
-from dask.delayed import delayed
 from dask.distributed import Client
-import pandas as pd
 from prefect import Flow
 from prefect import Parameter
 from prefect import resource_manager
-from prefect import Task
 from prefect import task
 
 
