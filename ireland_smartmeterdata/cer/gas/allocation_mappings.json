@@ -1,0 +1,9 @@
+{
+    "Allocation": {
+        "1": "Bi-monthly bill",
+        "2": "Monthly bill",
+        "3": "Bi-monthly bill + IHD",
+        "4": "Bi-monthly bill + IHD + tariff",
+        "C": "Control"
+    }
+}
