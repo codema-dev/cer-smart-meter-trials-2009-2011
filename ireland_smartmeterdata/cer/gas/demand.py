@@ -1,4 +1,4 @@
-"""Clean Gas Demands.
+"""Transform Gas Demands.
 
 From:
 
@@ -8,28 +8,18 @@ ID,DT,Usage
 To:
 
 id      datetime                demand
-1565    2009-07-15 01:30:00     0
+1565    2009-12-02 00:30:00     0
 """
 
-import csv
 from glob import glob
 from os import path
-from pathlib import Path
-from shutil import unpack_archive
-from typing import Any
 from typing import Iterable
-from typing import Tuple
-from zipfile import ZipFile
 
-import dask
 import dask.dataframe as dd
-from dask.delayed import delayed
 from dask.distributed import Client
-import pandas as pd
 from prefect import Flow
 from prefect import Parameter
 from prefect import resource_manager
-from prefect import Task
 from prefect import task
 
 
@@ -60,22 +50,21 @@ def get_path_to_raw_txt_files(dirpath: str) -> str:
 
     return path.join(
         dirpath,
-        "CER Electricity Revised March 2012",
+        "CER Gas Revised October 2012",
+        "CER_Gas_Data",
     )
 
 
 @task
 def read_raw_txt_files(dirpath: str) -> Iterable[dd.DataFrame]:
 
-    filepaths = glob(f"{dirpath}/*")
+    filepaths = glob(f"{dirpath}/GasDataWeek*")
 
     return dd.read_csv(
         filepaths,
-        compression="zip",
-        header=None,
-        sep=" ",
-        names=["ID", "timeid", "demand"],
-        dtype={"ID": "int16", "timeid": "string", "demand": "float32"},
+        sep=",",
+        header=0,
+        dtype={"ID": "int16", "DT": "string", "Usage": "float32"},
         engine="c",
     )
 
@@ -83,10 +72,10 @@ def read_raw_txt_files(dirpath: str) -> Iterable[dd.DataFrame]:
 @task
 def slice_timeid_column(ddf: dd.DataFrame) -> dd.DataFrame:
 
-    ddf["day"] = ddf["timeid"].str.slice(0, 3).astype("int16")
-    ddf["halfhourly_id"] = ddf["timeid"].str.slice(3, 5).astype("int8")
+    ddf["day"] = ddf["DT"].str.slice(0, 3).astype("int16")
+    ddf["halfhourly_id"] = ddf["DT"].str.slice(3, 5).astype("int8")
 
-    return ddf.drop(columns=["timeid"])
+    return ddf.drop(columns=["DT"])
 
 
 @task
@@ -110,7 +99,7 @@ def write_parquet(ddf: dd.DataFrame, savepath: str):
     return ddf.to_parquet(savepath)
 
 
-with Flow("Clean Electricity Data") as flow:
+with Flow("Clean Gas Demands") as flow:
 
     input_dirpath = Parameter("input_dirpath")
     output_dirpath = Parameter("output_dirpath")
