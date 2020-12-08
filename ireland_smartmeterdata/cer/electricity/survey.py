@@ -42,15 +42,27 @@ def get_survey_nomappings_filepath(building_type: str) -> str:
 
 
 @task
-def get_path_to_survey(dirpath: str) -> str:
+def get_path_to_survey(dirpath: str, building_type: str) -> str:
 
-    return path.join(
+    readdir = path.join(
         dirpath,
         "CER Electricity Revised March 2012",
         "CER_Electricity_Data",
         "Survey data - CSV format",
-        "Smart meters Residential pre-trial survey data.csv",
     )
+
+    if building_type == "residential":
+        filepath = path.join(
+            readdir, "Smart meters Residential pre-trial survey data.csv"
+        )
+    elif building_type == "sme":
+        filepath = path.join(readdir, "Smart meters SME pre-trial survey data.csv")
+    else:
+        raise ValueError(
+            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
+        )
+
+    return filepath
 
 
 @task
@@ -120,7 +132,7 @@ with Flow("Map surveys to Building IDs") as flow:
     output_filepath = Parameter("output_filepath")
     building_type = Parameter("building_type")
 
-    path_to_survey = get_path_to_survey(input_dirpath)
+    path_to_survey = get_path_to_survey(input_dirpath, building_type)
 
     survey_raw = read_surveys(path_to_survey)
 
