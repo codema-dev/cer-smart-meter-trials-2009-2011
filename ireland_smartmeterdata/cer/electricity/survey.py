@@ -9,8 +9,36 @@ from prefect import Parameter
 from prefect import task
 
 here = path.abspath(path.dirname(__file__))
-survey_mappings_filepath = path.join(here, "residential_survey/mappings.json")
-survey_nomappings_filepath = path.join(here, "residential_survey/nomappings.txt")
+
+
+@task
+def get_survey_mappings_filepath(building_type: str) -> str:
+
+    if building_type == "residential":
+        filepath = path.join(here, "residential_survey/mappings.json")
+    elif building_type == "sme":
+        filepath = path.join(here, "sme_survey/mappings.json")
+    else:
+        raise ValueError(
+            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
+        )
+
+    return filepath
+
+
+@task
+def get_survey_nomappings_filepath(building_type: str) -> str:
+
+    if building_type == "residential":
+        filepath = path.join(here, "residential_survey/nomappings.txt")
+    elif building_type == "sme":
+        filepath = path.join(here, "sme_survey/nomappings.txt")
+    else:
+        raise ValueError(
+            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
+        )
+
+    return filepath
 
 
 @task
@@ -90,10 +118,14 @@ with Flow("Map surveys to Building IDs") as flow:
 
     input_dirpath = Parameter("input_dirpath")
     output_filepath = Parameter("output_filepath")
+    building_type = Parameter("building_type")
 
-    path_to_surveys = get_path_to_survey(input_dirpath)
+    path_to_survey = get_path_to_survey(input_dirpath)
 
-    survey_raw = read_surveys(path_to_surveys)
+    survey_raw = read_surveys(path_to_survey)
+
+    survey_mappings_filepath = get_survey_mappings_filepath(building_type)
+    survey_nomappings_filepath = get_survey_mappings_filepath(building_type)
     survey_mappings = read_mappings(survey_mappings_filepath)
     survey_nomappings = read_nomappings(survey_nomappings_filepath)
 
