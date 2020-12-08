@@ -76,31 +76,27 @@ with Flow("Map Allocations to Building IDs") as flow:
     input_dirpath = Parameter("input_dirpath")
     output_filepath = Parameter("output_filepath")
 
-    allocations_already_cleaned = check_file_exists(output_filepath)
+    column_names = [
+        "ID",
+        "Code",
+        "Residential - Tariff allocation",
+        "Residential - stimulus allocation",
+        "SME allocation",
+    ]
+    path_to_allocations = get_path_to_allocations(input_dirpath)
 
-    with case(allocations_already_cleaned, False):
+    allocations_raw = read_allocations(path_to_allocations, usecols=column_names)
+    allocation_mappings = read_allocation_mappings(allocation_mappings_filepath)
 
-        column_names = [
-            "ID",
+    allocations_decoded = decode_columns(
+        allocations_raw,
+        column_names=[
             "Code",
             "Residential - Tariff allocation",
             "Residential - stimulus allocation",
             "SME allocation",
-        ]
-        path_to_allocations = get_path_to_allocations(input_dirpath)
+        ],
+        column_mappings=allocation_mappings,
+    )
 
-        allocations_raw = read_allocations(path_to_allocations, usecols=column_names)
-        allocation_mappings = read_allocation_mappings(allocation_mappings_filepath)
-
-        allocations_decoded = decode_columns(
-            allocations_raw,
-            column_names=[
-                "Code",
-                "Residential - Tariff allocation",
-                "Residential - stimulus allocation",
-                "SME allocation",
-            ],
-            column_mappings=allocation_mappings,
-        )
-
-        write_to_parquet(allocations_decoded, output_filepath)
+    write_to_parquet(allocations_decoded, output_filepath)
