@@ -137,7 +137,7 @@ with Flow("Map surveys to Building IDs") as flow:
     survey_raw = read_surveys(path_to_survey)
 
     survey_mappings_filepath = get_survey_mappings_filepath(building_type)
-    survey_nomappings_filepath = get_survey_mappings_filepath(building_type)
+    survey_nomappings_filepath = get_survey_nomappings_filepath(building_type)
     survey_mappings = read_mappings(survey_mappings_filepath)
     survey_nomappings = read_nomappings(survey_nomappings_filepath)
 
