@@ -1,10 +1,193 @@
 {
-    "Question 611: INT:Code organistation s business as appropriate to the following": {
-        "1": "Agriculture, forestry and fishing",
-        "2": "Industry Mining and quarrying Manufacturing Electricity, gas, steam and air conditioning supply Water supply, sewerage, waste management and remediation activities",
-        "3": "Construction",
-        "4": "Wholesale and retail trade; repair of motor vehicles and motorcycles",
-        "5": "Business and Professional Services Information and communication Financial and insurance activities Real estate activities Professional, scientific and technical activities Administrative and support service activities Public administration and defence; compulsory social security Education Human health and social work activities",
-        "6": "Other Transportation and storage Accommodation and food service activities Leisure hotels Arts, entertainment and recreation Other service activities Activities of households as employers; undifferentiated goods- and services producing activities of households for own use Activities of extra-territorial organisations and bodies"
+    "Question 410: What best describes the people you live with? READ OUT": {
+        "1": "I live alone",
+        "2": "All people in my home are over 15 years of age",
+        "3": "Both adults and children under 15 years of age live in my home"
+    },
+    "Question 420: How many people over 15 years of age live in your home?": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 430: And how many of these are typically in the house during the day (for example for 5-6 hours during the day)": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 43111: How many people under 15 years of age live in your home?": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 4312: And how many of these are typically in the house during the day (for exanmple for 5-6 hours during the day)": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 450: I would now like to ask some questions about your home.  Which best describes your home?": {
+        "1": "Apartment",
+        "2": "Semi-detached house",
+        "3": "Detached house",
+        "4": "Terraced house",
+        "5": "Bungalow",
+        "6": "Refused"
+    },
+    "Question 452: Do you own or rent your home?": {
+        "1": "Rent (from a private landlord)",
+        "2": "Rent (from a local authority)",
+        "3": "Own Outright (not mortgaged)",
+        "4": "Own with mortgage etc",
+        "5": "Other"
+    },
+    "Question 4531: Approximately how old is your home?": {
+        "1": "Less than 5 years old",
+        "2": "Less than 10 years old",
+        "3": "Less than 30",
+        "4": "Less than 75",
+        "5": "More than 75 years old"
+    },
+    "Question 61031: Is that": {
+        "1": "square meters",
+        "2": "or square feet"
+    },
+    "Question 4704: Which of the following best describes how you cook in your home": {
+        "1": "Electric cooker",
+        "2": "Gas cooker",
+        "3": "Oil fired cooker",
+        "4": "Solid fuel cooker (stove aga)"
+    },
+    "Question 49004: Washing machine  INT:PROBE TO PRECODES": {
+        "1": "Less than 1 load a day typically",
+        "2": "1 load typically",
+        "3": "2 to 3 loads",
+        "4": "More than 3 loads"
+    },
+    "Question 49004: Tumble dryer  INT:PROBE TO PRECODES": {
+        "1": "Less than 1 load a day typically",
+        "2": "1 load typically",
+        "3": "2 to 3 loads",
+        "4": "More than 3 loads"
+    },
+    "Question 49004: Dishwasher  INT:PROBE TO PRECODES": {
+        "1": "Less than 1 load a day typically",
+        "2": "1 load typically",
+        "3": "2 to 3 loads",
+        "4": "More than 3 loads"
+    },
+    "Question 490004: Electric shower (instant)  INT:PROBE TO PRECODES": {
+        "1": "Less than 5 mins",
+        "2": "5-10 mins",
+        "3": "10-20 mins",
+        "4": "Over 20 mins"
+    },
+    "Question 4900004: Electric shower (pumped from hot tank)  INT:PROBE TO PRECODES": {
+        "1": "Less than 5 mins",
+        "2": "5-10 mins",
+        "3": "10-20 mins",
+        "4": "Over 20 mins"
+    },
+    "Question 4900005: Electric cooker  INT:PROBE TO PRECODES": {
+        "1": "Less than 30 mins",
+        "2": "30-60 mins",
+        "3": "1-2 hours",
+        "4": "Over 2 hours"
+    },
+    "Question 4900006: Electric heater (plug-in)  INT:PROBE TO PRECODES": {
+        "1": "Less than 30 mins",
+        "2": "30-60 mins",
+        "3": "1-2 hours",
+        "4": "Over 2 hours"
+    },
+    "Question 4900007: Water pump   INT:PROBE TO PRECODES": {
+        "1": "Less than 30 mins",
+        "2": "30-60 mins",
+        "3": "1-2 hours",
+        "4": "Over 2 hours"
+    },
+    "Question 4900008: Immersion water  INT:PROBE TO PRECODES": {
+        "1": "Less than 30 mins",
+        "2": "30-60 mins",
+        "3": "1-2 hours",
+        "4": "Over 2 hours"
+    },
+    "Question 4900009: Stand alone Freezer  INT:PROBE TO PRECODES": {
+        "1": "For part of the year (4-6 months)",
+        "2": "All year"
+    },
+    "Question 455: Does your home have a Building Energy Rating (BER) - a recently introduced scheme for rating the energy efficiency of your home?": {
+        "1": "Yes",
+        "2": "No",
+        "3": "Don’t know"
+    },
+    "Question 4551: What rating did your house achieve?": {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G"
+    },
+    "Question 4905: And now considering energy reduction in your home please indicate the approximate proportion of light bulbs which are energy saving (or CFL)?  INT:READ OUT": {
+        "1": "None",
+        "2": "About a quarter",
+        "3": "About half",
+        "4": "About three quarters",
+        "5": "All"
+    },
+    "Question 4906: Please indicate the approximate proportion of windows in your home which are double glazed?  INT:READ OUT": {
+        "1": "None",
+        "2": "About a quarter",
+        "3": "About half",
+        "4": "About three quarters",
+        "5": "All"
+    },
+    "Question 4907: Does your hot water tank have a lagging jacket?": {
+        "1": "Yes",
+        "2": "No"
+    },
+    "Question 4908: Is your attic insulated and if so when was the insulation fitted?  INT:PROBE TO PRECODES": {
+        "1": "Yes, within the last 5 years",
+        "2": "Yes, more than 5 years ago",
+        "3": "No",
+        "4": "Don’t know"
+    },
+    "Question 4909: Are the external walls of your home insulated?": {
+        "1": "Yes",
+        "2": "No",
+        "3": "Don’t know"
+    },
+    "Question 4021: Can you state which of the following broad categories best represents the yearly household income BEFORE TAX?": {
+        "1": "Less than 15,000 Euros",
+        "2": "15,000 to 30,000 Euros",
+        "3": "30,000 to 50,000 Euros",
+        "4": "50,000 to 75,000 Euros",
+        "5": "75,000 or more Euros",
+        "6": "Refused"
+    },
+    "Question 403: Is that figure": {
+        "1": "Per week",
+        "2": "Per month",
+        "3": "Per year"
+    },
+    "Question 404: Can I just double check is that figure..": {
+        "1": "Before tax",
+        "2": "or after tax"
     }
 }

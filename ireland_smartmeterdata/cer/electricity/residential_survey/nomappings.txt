@@ -1,16 +1,1 @@
 ID
-Question 453: What year was your house built INT ENTER FOR EXAMPLE: 1981- CAPTURE THE FOUR DIGITS
-Question 6103: What is the approximate floor area of your home?
-Question 470: Which of the following best describes how you heat your: Electricity (electric central heating/storage heating)
-Question 470: Which of the following best describes how you heat your: Electricity (plug in heaters)
-Question 49001: Washing machine
-Question 49001: Tumble dryer
-Question 49001: Dishwasher
-Question 49001: Electric shower (instant)
-Question 49001: Electric shower (electric pumped from hot tank)
-Question 49001: Electric cooker
-Question 49001: Electric heater (plug-in convector heaters)
-Question 49001: Stand alone freezer
-Question 49001: A water pump or electric well pump or pressurised water system
-Question 49001: Immersion
-Question 49002: Washing machine
