@@ -1,0 +1,145 @@
+{
+    "Question 410: What best describes the people you live with? READ OUT": {
+        "1": "I live alone",
+        "2": "All people in my home are over 15 years of age",
+        "3": "Both adults and children under 15 years of age live in my home"
+    },
+    "Question 420: How many people over 15 years of age live in your home?": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 430: And how many of these are typically in the house during the day (for example for 5-6 hours during the day)": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 43111: How many people under 15 years of age live in your home?": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 4312: And how many of these are typically in the house during the day (for exanmple for 5-6 hours during the day)": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7 or more"
+    },
+    "Question 450: I would now like to ask some questions about your home.  Which best describes your home?": {
+        "1": "Apartment",
+        "2": "Semi-detached house",
+        "3": "Detached house",
+        "4": "Terraced house",
+        "5": "Bungalow",
+        "6": "Refused"
+    },
+    "Question 452: Do you own or rent your home?": {
+        "1": "Rent (from a private landlord)",
+        "2": "Rent (from a local authority)",
+        "3": "Own Outright (not mortgaged)",
+        "4": "Own with mortgage etc",
+        "5": "Other"
+    },
+    "Question 4531: Approximately how old is your home?": {
+        "1": "Less than 5 years old",
+        "2": "Less than 10 years old",
+        "3": "Less than 30",
+        "4": "Less than 75",
+        "5": "More than 75 years old"
+    },
+    "Question 61031: Is that": {
+        "1": "square meters",
+        "2": "or square feet"
+    },
+    "Question 2150: What temperature is your home mostly set at?": {
+        "1": "<18 degrees",
+        "2": "18 degrees-20 degrees",
+        "3": "21 degrees",
+        "4": "22-24 degrees",
+        "5": ">24 degrees",
+        "6": "Don’t know"
+    },
+    "Question 4704: Which of the following best describes how you cook in your home": {
+        "1": "Electric cooker",
+        "2": "Gas cooker",
+        "3": "Oil fired cooker",
+        "4": "Solid fuel cooker (stove aga)"
+    },
+    "Question 455: Does your home have a Building Energy Rating (BER) - a recently introduced scheme for rating the energy efficiency of your home?": {
+        "1": "Yes",
+        "2": "No",
+        "3": "Don’t know"
+    },
+    "Question 4551: What rating did your house achieve? PROMPT IF RESPONDENT DOESNT KNOW": {
+        "1": "A1",
+        "2": "A2",
+        "3": "A3",
+        "4": "B1",
+        "5": "B2",
+        "6": "B3",
+        "7": "C1",
+        "8": "C2",
+        "9": "C3",
+        "10": "D1",
+        "11": "D2",
+        "12": "E1",
+        "13": "E2",
+        "14": "F",
+        "15": "G",
+        "16": "Don't know"
+    },
+    "Question 4906: Please indicate the approximate proportion of windows in your home which are double glazed?  INT:READ OUT": {
+        "1": "None",
+        "2": "About a quarter",
+        "3": "About half",
+        "4": "About three quarters",
+        "5": "All"
+    },
+    "Question 4907: Does your hot water cylinder have a lagging jacket?": {
+        "1": "Yes",
+        "2": "No"
+    },
+    "Question 4908: Is your attic insulated and if so when was the insulation fitted?  INT:PROBE TO PRECODES": {
+        "1": "Yes, within the last 5 years",
+        "2": "Yes, more than 5 years ago",
+        "3": "No",
+        "4": "Don’t know"
+    },
+    "Question 4909: Are the external walls of your home insulated?": {
+        "1": "Yes",
+        "2": "No",
+        "3": "Don’t know"
+    },
+    "Question 4021: Can you state which of the following broad categories best represents the yearly household income BEFORE TAX?": {
+        "1": "Less than 15,000 Euros",
+        "2": "15,000 to 30,000 Euros",
+        "3": "30,000 to 50,000 Euros",
+        "4": "50,000 to 75,000 Euros",
+        "5": "75,000 or more Euros",
+        "6": "Refused"
+    },
+    "Question 403: Is that figure": {
+        "1": "Per week",
+        "2": "Per month",
+        "3": "Per year"
+    },
+    "Question 404: Can I just double check is that figure..": {
+        "1": "Before tax",
+        "2": "or after tax"
+    }
+}

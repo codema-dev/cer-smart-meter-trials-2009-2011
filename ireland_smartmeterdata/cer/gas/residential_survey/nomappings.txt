@@ -1,0 +1,13 @@
+ID
+Question 453: What year was your house or apartment built INT ENTER FOR EXAMPLE: 1981- CAPTURE THE FOUR DIGITS
+Question 6103: What is the approximate floor area of your home?
+Question 460: How many bedrooms are there in your home
+Question 4701: Which of the following describe how you heat water in your: Central heating system
+Question 4701: Which of the following describe how you heat water in your: Electric (immersion)
+Question 4701: Which of the following describe how you heat water in your: Electric (instantaneous heater for example your instant shower)
+Question 4701: Which of the following describe how you heat water in your: Gas -where there is a small boiler near the tap that gives you instant hot water
+Question 4701: Which of the following describe how you heat water in your: Gas
+Question 4701: Which of the following describe how you heat water in your: Oil
+Question 4701: Which of the following describe how you heat water in your: Solid fuel boiler
+Question 4701: Which of the following describe how you heat water in your: Renewable (e.g. solar)
+Question 4701: Which of the following describe how you heat water in your: Other
