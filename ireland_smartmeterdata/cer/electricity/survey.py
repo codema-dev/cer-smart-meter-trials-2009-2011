@@ -120,12 +120,6 @@ def write_to_parquet(df: pd.DataFrame, filepath: str) -> None:
     df.to_parquet(filepath)
 
 
-@task
-def check_file_exists(filepath: str) -> bool:
-
-    return path.exists(filepath)
-
-
 with Flow("Map surveys to Building IDs") as flow:
 
     input_dirpath = Parameter("input_dirpath")
