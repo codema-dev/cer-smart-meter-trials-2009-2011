@@ -7,11 +7,13 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6 || ^3.7 || ^3.8"
-dask = "^2.30.0"
+dask = {extras = ["dataframe"], version = "^2.30.0"}
 prefect = "^0.13.18"
 pyarrow = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
+great-expectations = "^0.13.2"
+pytest = "^6.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
