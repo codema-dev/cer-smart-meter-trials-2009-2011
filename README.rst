@@ -1,11 +1,11 @@
-======================
-ireland_smartmeterdata
-======================
+================================
+CER Smart Meter Trials 2009-2011
+================================
 
 This repository simplifies working with:
 
 - `CER Electricity Customer Behaviour Trial 2009-2010`__
-- `CER Gas Customer Behaviour Trial 2009-2010`__
+- `CER Gas Customer Behaviour Trial 2010-2011`__
 
 __ https://www.ucd.ie/issda/data/commissionforenergyregulationcer/ 
 __ https://www.ucd.ie/issda/data/commissionforenergyregulationcer/
