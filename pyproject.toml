@@ -6,7 +6,7 @@ authors = ["Rowan Molony <rowan.molony@codema.ie>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.6 || ^3.7 || ^3.8"
+python = "^3.6.1"
 dask = {extras = ["dataframe"], version = "^2.30.0"}
 prefect = "^0.13.18"
 pyarrow = "^2.0.0"

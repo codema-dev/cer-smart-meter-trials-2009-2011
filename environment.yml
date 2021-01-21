@@ -8,5 +8,4 @@ dependencies:
   - dask
   - pyarrow
   - poetry
-  - psutil
   
