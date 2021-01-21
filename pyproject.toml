@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "ireland_smartmeterdata"
+name = "cer"
 version = "0.1.0"
-description = "Sets up a sandbox environment for Ireland Smart Meter datasets via prefect, dask and pandas"
+description = "Tidies & simplifies querying the CER Smart Meter Trials 2009-2011 datasets via prefect, dask, pandas and Google Colaboratory"
 authors = ["Rowan Molony <rowan.molony@codema.ie>"]
 license = "MIT"
 
