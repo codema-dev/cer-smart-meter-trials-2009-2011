@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
-dask = {extras = ["dataframe"], version = "^2.30.0"}
+dask = {extras = ["dataframe"], version = "^2021.1.0"}
 prefect = "^0.13.18"
 pyarrow = "^2.0.0"
 

@@ -16,33 +16,9 @@ from os import path
 from typing import Iterable
 
 import dask.dataframe as dd
-from dask.distributed import Client
 from prefect import Flow
 from prefect import Parameter
-from prefect import resource_manager
 from prefect import task
-
-
-@resource_manager
-class DaskCluster:
-    """Create a temporary dask cluster.
-
-    https://docs.prefect.io/core/idioms/resource-manager.html#managing-temporary-resources
-
-    Args:
-        - n_workers (int, optional): The number of workers to start.
-    """
-
-    def __init__(self, n_workers=None):
-        self.n_workers = n_workers
-
-    def setup(self):
-        """Create a temporary dask cluster, returning the `Client`"""
-        return Client(n_workers=self.n_workers)
-
-    def cleanup(self, client):
-        """Shutdown the temporary dask cluster"""
-        client.close()
 
 
 @task
@@ -107,10 +83,8 @@ with Flow("Clean Gas Demands") as flow:
 
     path_to_raw_txt_files = get_path_to_raw_txt_files(input_dirpath)
 
-    with DaskCluster(n_workers=n_workers) as client:
-        # These tasks rely on a dask cluster to run, so we create them inside
-        # the `DaskCluster` resource manager
-        demand_raw = read_raw_txt_files(path_to_raw_txt_files)
-        demand_with_times = slice_timeid_column(demand_raw)
-        demand_with_datetimes = convert_dayid_to_datetime(demand_with_times)
-        write_parquet(demand_with_datetimes, output_dirpath)
+    demand_raw = read_raw_txt_files(path_to_raw_txt_files)
+    demand_with_times = slice_timeid_column(demand_raw)
+    demand_with_datetimes = convert_dayid_to_datetime(demand_with_times)
+    
+    write_parquet(demand_with_datetimes, output_dirpath)
