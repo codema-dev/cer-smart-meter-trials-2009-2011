@@ -79,7 +79,6 @@ with Flow("Clean Gas Demands") as flow:
 
     input_dirpath = Parameter("input_dirpath")
     output_dirpath = Parameter("output_dirpath")
-    n_workers = Parameter("n_workers", default=1)
 
     path_to_raw_txt_files = get_path_to_raw_txt_files(input_dirpath)
 
