@@ -1,0 +1,12 @@
+name: cer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - prefect
+  - dask
+  - pyarrow
+  - poetry
+  - psutil
+  
