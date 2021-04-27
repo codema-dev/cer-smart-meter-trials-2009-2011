@@ -8,11 +8,11 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.6.1"
 dask = {extras = ["dataframe"], version = "^2021.1.0"}
-prefect = "^0.13.18"
-pyarrow = "^2.0.0"
+openpyxl = "^3.0.7"
+xlrd = "^2.0.1"
+pyarrow = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
-great-expectations = "^0.13.2"
 pytest = "^6.1.2"
 
 [build-system]

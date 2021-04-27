@@ -27,17 +27,15 @@ To setup the sandbox:
 
 __ https://www.ucd.ie/issda/data/commissionforenergyregulationcer/ 
 
-- Unzip and upload the dataset to `Google Drive`
-
-- Click the Google Collab badge & open `setup.ipynb`:
+- Click the Google Collab badge below & open `sandbox.ipynb`:
 
     .. image:: https://colab.research.google.com/assets/colab-badge.svg
-            :target: https://colab.research.google.com/github/codema-dev/ireland_smartmeterdata
+            :target: https://colab.research.google.com/github/codema-dev/cer-smart-meter-trials-2009-2011
             
 Note
 ====
 
-`ireland_smartmeterdata` assumes the following folder structure for the data files::
+`cer-smart-meter-trials-2009-2011` assumes the following folder structure for the data files::
 
     ├── CER Electricity Revised March 2012
     │   ├── CER_Electricity_Data

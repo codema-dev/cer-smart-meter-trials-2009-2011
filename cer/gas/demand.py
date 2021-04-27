@@ -11,30 +11,16 @@ id      datetime                demand
 1565    2009-12-02 00:30:00     0
 """
 
-from glob import glob
-from os import path
+from pathlib import Path
 from typing import Iterable
 
 import dask.dataframe as dd
-from prefect import Flow
-from prefect import Parameter
-from prefect import task
+from dask.diagnostics import ProgressBar
 
 
-@task
-def get_path_to_raw_txt_files(dirpath: str) -> str:
+def _read_raw_txt_files(dirpath: str) -> Iterable[dd.DataFrame]:
 
-    return path.join(
-        dirpath,
-        "CER Gas Revised October 2012",
-        "CER_Gas_Data",
-    )
-
-
-@task
-def read_raw_txt_files(dirpath: str) -> Iterable[dd.DataFrame]:
-
-    filepaths = glob(f"{dirpath}/GasDataWeek*")
+    filepaths = list(dirpath.glob("GasDataWeek*"))
 
     return dd.read_csv(
         filepaths,
@@ -45,8 +31,7 @@ def read_raw_txt_files(dirpath: str) -> Iterable[dd.DataFrame]:
     )
 
 
-@task
-def slice_timeid_column(ddf: dd.DataFrame) -> dd.DataFrame:
+def _slice_timeid_column(ddf: dd.DataFrame) -> dd.DataFrame:
 
     ddf["day"] = ddf["DT"].str.slice(0, 3).astype("int16")
     ddf["halfhourly_id"] = ddf["DT"].str.slice(3, 5).astype("int8")
@@ -54,8 +39,7 @@ def slice_timeid_column(ddf: dd.DataFrame) -> dd.DataFrame:
     return ddf.drop(columns=["DT"])
 
 
-@task
-def convert_dayid_to_datetime(ddf: dd.DataFrame) -> dd.DataFrame:
+def _convert_dayid_to_datetime(ddf: dd.DataFrame) -> dd.DataFrame:
 
     ddf["datetime"] = (
         dd.to_datetime(
@@ -69,21 +53,14 @@ def convert_dayid_to_datetime(ddf: dd.DataFrame) -> dd.DataFrame:
     return ddf.drop(columns=["day", "halfhourly_id"])
 
 
-@task
-def write_parquet(ddf: dd.DataFrame, savepath: str):
+def clean_gas_demands(input_dirpath, output_dirpath="gas_demands"):
 
-    return ddf.to_parquet(savepath)
+    demand_raw = _read_raw_txt_files(
+        Path(input_dirpath) / "CER Gas Revised October 2012" / "CER_Gas_Data"
+    )
+    demand_with_times = _slice_timeid_column(demand_raw)
+    demand_with_datetimes = _convert_dayid_to_datetime(demand_with_times)
 
-
-with Flow("Clean Gas Demands") as flow:
-
-    input_dirpath = Parameter("input_dirpath")
-    output_dirpath = Parameter("output_dirpath")
-
-    path_to_raw_txt_files = get_path_to_raw_txt_files(input_dirpath)
-
-    demand_raw = read_raw_txt_files(path_to_raw_txt_files)
-    demand_with_times = slice_timeid_column(demand_raw)
-    demand_with_datetimes = convert_dayid_to_datetime(demand_with_times)
-    
-    write_parquet(demand_with_datetimes, output_dirpath)
+    print("Cleaning Gas Demands...")
+    with ProgressBar():
+        demand_with_datetimes.to_parquet(output_dirpath)

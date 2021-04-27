@@ -1,92 +1,14 @@
 import json
-from os import path
+from pathlib import Path
 from typing import Dict
 from typing import List
 
 import pandas as pd
-from prefect import Flow
-from prefect import Parameter
-from prefect import task
 
-here = path.abspath(path.dirname(__file__))
+HERE = Path(__file__).parent
 
 
-@task
-def get_survey_mappings_filepath(building_type: str) -> str:
-
-    if building_type == "residential":
-        filepath = path.join(here, "residential_survey/mappings.json")
-    elif building_type == "sme":
-        filepath = path.join(here, "sme_survey/mappings.json")
-    else:
-        raise ValueError(
-            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
-        )
-
-    return filepath
-
-
-@task
-def get_survey_nomappings_filepath(building_type: str) -> str:
-
-    if building_type == "residential":
-        filepath = path.join(here, "residential_survey/nomappings.txt")
-    elif building_type == "sme":
-        filepath = path.join(here, "sme_survey/nomappings.txt")
-    else:
-        raise ValueError(
-            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
-        )
-
-    return filepath
-
-
-@task
-def get_path_to_survey(dirpath: str, building_type: str) -> str:
-
-    readdir = path.join(
-        dirpath,
-        "CER Electricity Revised March 2012",
-        "CER_Electricity_Data",
-        "Survey data - CSV format",
-    )
-
-    if building_type == "residential":
-        filepath = path.join(
-            readdir, "Smart meters Residential pre-trial survey data.csv"
-        )
-    elif building_type == "sme":
-        filepath = path.join(readdir, "Smart meters SME pre-trial survey data.csv")
-    else:
-        raise ValueError(
-            f"'building_type' was {building_type}\n Value must be 'residential' or 'sme'"
-        )
-
-    return filepath
-
-
-@task
-def read_surveys(filepath: str) -> pd.DataFrame:
-
-    return pd.read_csv(filepath, encoding="latin-1", low_memory=False)
-
-
-@task
-def read_mappings(filepath: str) -> Dict[str, str]:
-
-    with open(filepath) as json_file:
-        return json.load(json_file)
-
-
-@task
-def read_nomappings(filepath: str) -> List[str]:
-
-    with open(filepath, "r") as file:
-        return file.read().splitlines()
-
-
-@task
-def get_columns(
+def _get_columns(
     df: pd.DataFrame,
     column_mappings: Dict[str, str],
     column_nomappings: List[str],
@@ -98,8 +20,7 @@ def get_columns(
     return df[columns_to_extract].copy()
 
 
-@task
-def decode_columns(
+def _decode_columns(
     df: pd.DataFrame,
     column_mappings: Dict[str, str],
 ) -> pd.DataFrame:
@@ -114,31 +35,53 @@ def decode_columns(
     return df
 
 
-@task
-def write_to_parquet(df: pd.DataFrame, filepath: str) -> None:
+def clean_electricity_residential_survey(
+    input_dirpath, output_filepath="electricity_residential_survey.csv"
+):
 
-    df.to_parquet(filepath)
-
-
-with Flow("Map surveys to Building IDs") as flow:
-
-    input_dirpath = Parameter("input_dirpath")
-    output_filepath = Parameter("output_filepath")
-    building_type = Parameter("building_type")
-
-    path_to_survey = get_path_to_survey(input_dirpath, building_type)
-
-    survey_raw = read_surveys(path_to_survey)
-
-    survey_mappings_filepath = get_survey_mappings_filepath(building_type)
-    survey_nomappings_filepath = get_survey_nomappings_filepath(building_type)
-    survey_mappings = read_mappings(survey_mappings_filepath)
-    survey_nomappings = read_nomappings(survey_nomappings_filepath)
-
-    survey_columns = get_columns(survey_raw, survey_mappings, survey_nomappings)
-    survey_decoded = decode_columns(
-        survey_columns,
-        column_mappings=survey_mappings,
+    survey_raw = pd.read_csv(
+        Path(input_dirpath)
+        / "CER Electricity Revised March 2012"
+        / "CER_Electricity_Data"
+        / "Survey data - CSV format"
+        / "Smart meters Residential pre-trial survey data.csv",
+        encoding="latin-1",
+        low_memory=False,
     )
+    with open(HERE / "residential_survey" / "mappings.json") as json_file:
+        column_mappings = json.load(json_file)
+    with open(HERE / "residential_survey" / "nomappings.txt", "r") as file:
+        column_nomappings = file.read().splitlines()
 
-    write_to_parquet(survey_decoded, output_filepath)
+    survey_columns = _get_columns(survey_raw, column_mappings, column_nomappings)
+    survey_decoded = _decode_columns(
+        survey_columns,
+        column_mappings,
+    )
+    survey_decoded.to_csv(output_filepath, index=False)
+
+
+def clean_electricity_sme_survey(
+    input_dirpath, output_filepath="electricity_sme_survey.csv"
+):
+
+    survey_raw = pd.read_csv(
+        Path(input_dirpath)
+        / "CER Electricity Revised March 2012"
+        / "CER_Electricity_Data"
+        / "Survey data - CSV format"
+        / "Smart meters SME pre-trial survey data.csv",
+        encoding="latin-1",
+        low_memory=False,
+    )
+    with open(HERE / "sme_survey" / "mappings.json") as json_file:
+        column_mappings = json.load(json_file)
+    with open(HERE / "sme_survey" / "nomappings.txt", "r") as file:
+        column_nomappings = file.read().splitlines()
+
+    survey_columns = _get_columns(survey_raw, column_mappings, column_nomappings)
+    survey_decoded = _decode_columns(
+        survey_columns,
+        column_mappings,
+    )
+    survey_decoded.to_csv(output_filepath, index=False)

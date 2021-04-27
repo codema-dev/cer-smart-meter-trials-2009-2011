@@ -1,61 +1,14 @@
 import json
-from os import path
+from pathlib import Path
 from typing import Dict
 from typing import List
 
 import pandas as pd
-from prefect import Flow
-from prefect import Parameter
-from prefect import task
 
-here = path.abspath(path.dirname(__file__))
+HERE = Path(__file__).parent
 
 
-@task
-def get_survey_mappings_filepath() -> str:
-
-    return path.join(here, "residential_survey/mappings.json")
-
-
-@task
-def get_survey_nomappings_filepath() -> str:
-
-    return path.join(here, "residential_survey/nomappings.txt")
-
-
-@task
-def get_path_to_survey(dirpath: str) -> str:
-
-    return path.join(
-        dirpath,
-        "CER Gas Revised October 2012",
-        "CER_Gas_Data",
-        "Smart meters Residential pre-trial survey data - Gas.csv",
-    )
-
-
-@task
-def read_surveys(filepath: str) -> pd.DataFrame:
-
-    return pd.read_csv(filepath, encoding="latin-1", low_memory=False)
-
-
-@task
-def read_mappings(filepath: str) -> Dict[str, str]:
-
-    with open(filepath) as json_file:
-        return json.load(json_file)
-
-
-@task
-def read_nomappings(filepath: str) -> List[str]:
-
-    with open(filepath, "r") as file:
-        return file.read().splitlines()
-
-
-@task
-def get_columns(
+def _get_columns(
     df: pd.DataFrame,
     column_mappings: Dict[str, str],
     column_nomappings: List[str],
@@ -67,8 +20,7 @@ def get_columns(
     return df[columns_to_extract].copy()
 
 
-@task
-def decode_columns(
+def _decode_columns(
     df: pd.DataFrame,
     column_mappings: Dict[str, str],
 ) -> pd.DataFrame:
@@ -83,30 +35,26 @@ def decode_columns(
     return df
 
 
-@task
-def write_to_parquet(df: pd.DataFrame, filepath: str) -> None:
+def clean_gas_residential_survey(
+    input_dirpath, output_filepath="gas_residential_survey.csv"
+):
 
-    df.to_parquet(filepath)
-
-
-with Flow("Map surveys to Building IDs") as flow:
-
-    input_dirpath = Parameter("input_dirpath")
-    output_filepath = Parameter("output_filepath")
-
-    path_to_survey = get_path_to_survey(input_dirpath)
-
-    survey_raw = read_surveys(path_to_survey)
-
-    survey_mappings_filepath = get_survey_mappings_filepath()
-    survey_nomappings_filepath = get_survey_nomappings_filepath()
-    survey_mappings = read_mappings(survey_mappings_filepath)
-    survey_nomappings = read_nomappings(survey_nomappings_filepath)
-
-    survey_columns = get_columns(survey_raw, survey_mappings, survey_nomappings)
-    survey_decoded = decode_columns(
-        survey_columns,
-        column_mappings=survey_mappings,
+    survey_raw = pd.read_csv(
+        Path(input_dirpath)
+        / "CER Gas Revised October 2012"
+        / "CER_Gas_Data"
+        / "Smart meters Residential pre-trial survey data - Gas.csv",
+        encoding="latin-1",
+        low_memory=False,
     )
+    with open(HERE / "residential_survey" / "mappings.json") as json_file:
+        column_mappings = json.load(json_file)
+    with open(HERE / "residential_survey" / "nomappings.txt", "r") as file:
+        column_nomappings = file.read().splitlines()
 
-    write_to_parquet(survey_decoded, output_filepath)
+    survey_columns = _get_columns(survey_raw, column_mappings, column_nomappings)
+    survey_decoded = _decode_columns(
+        survey_columns,
+        column_mappings,
+    )
+    survey_decoded.to_csv(output_filepath, index=False)

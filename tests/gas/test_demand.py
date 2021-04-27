@@ -5,7 +5,7 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 import pytest
 
-from ireland_smartmeterdata.cer.gas import demand
+from cer.gas import demand
 
 
 @pytest.fixture
@@ -44,7 +44,7 @@ def test_read_raw_txt_files(gas_data_dir: Path) -> None:
         index_col=0,
     )
 
-    output = demand.read_raw_txt_files.run(gas_data_dir).compute()
+    output = demand._read_raw_txt_files(gas_data_dir).compute()
 
     assert_frame_equal(output, expected_output)
 
@@ -59,7 +59,7 @@ def test_slice_timeid_column() -> None:
         },
     )
 
-    output = demand.slice_timeid_column.run(timeid)
+    output = demand._slice_timeid_column(timeid)
 
     assert_frame_equal(output, expected_output)
 
@@ -81,6 +81,6 @@ def test_convert_dayid_to_datetime() -> None:
         },
     )
 
-    output = demand.convert_dayid_to_datetime.run(dayid)
+    output = demand._convert_dayid_to_datetime(dayid)
 
     assert_frame_equal(output, expected_output)
