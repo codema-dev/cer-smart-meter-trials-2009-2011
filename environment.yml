@@ -3,9 +3,18 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - dask
-  - pyarrow
+  # Replaces pip
   - poetry
+
+  # Wrangling
+  - dask
+  
+  # File operations
+  - pyarrow
   - openpyxl
   - xlrd
+
+  # dev
+  - pytest
+  - black
   

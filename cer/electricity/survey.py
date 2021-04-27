@@ -35,7 +35,7 @@ def _decode_columns(
     return df
 
 
-def clean_residential_survey(
+def clean_electricity_residential_survey(
     input_dirpath, output_filepath="electricity_residential_survey.csv"
 ):
 
@@ -61,7 +61,9 @@ def clean_residential_survey(
     survey_decoded.to_csv(output_filepath, index=False)
 
 
-def clean_sme_survey(input_dirpath, output_filepath="electricity_sme_survey.csv"):
+def clean_electricity_sme_survey(
+    input_dirpath, output_filepath="electricity_sme_survey.csv"
+):
 
     survey_raw = pd.read_csv(
         Path(input_dirpath)

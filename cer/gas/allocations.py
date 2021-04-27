@@ -21,7 +21,7 @@ def _decode_column(
     return df
 
 
-def clean_allocations(input_dirpath, output_filepath="gas_allocations.csv"):
+def clean_gas_allocations(input_dirpath, output_filepath="gas_allocations.csv"):
 
     column_names = [
         "ID",

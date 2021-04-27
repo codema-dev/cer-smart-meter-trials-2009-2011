@@ -35,7 +35,9 @@ def _decode_columns(
     return df
 
 
-def clean_survey(input_dirpath, output_filepath="gas_residential_survey.csv"):
+def clean_gas_residential_survey(
+    input_dirpath, output_filepath="gas_residential_survey.csv"
+):
 
     survey_raw = pd.read_csv(
         Path(input_dirpath)

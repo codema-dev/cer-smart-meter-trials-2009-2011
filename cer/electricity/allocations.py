@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from typing import Dict
 from typing import List
@@ -23,7 +24,9 @@ def _decode_columns(
     return df
 
 
-def clean_allocations(input_dirpath, output_filepath="electricity_allocations.csv"):
+def clean_electricity_allocations(
+    input_dirpath, output_filepath="electricity_allocations.csv"
+):
 
     column_names = [
         "ID",
