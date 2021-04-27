@@ -23,7 +23,7 @@ def _decode_columns(
     return df
 
 
-def clean_allocations(input_dirpath, output_filepath):
+def clean_allocations(input_dirpath, output_filepath="electricity_allocations.csv"):
 
     column_names = [
         "ID",
